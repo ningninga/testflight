@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--https://www.swiper.com.cn/demo/patagonia/-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>The cheapest airline tickets</title>
+    <link rel="stylesheet" href="./css/swiper.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/sign-page.css">
+    <link rel="stylesheet" href="./css/animate.css">
+    <link rel="stylesheet" href="./css/prepare-button-page.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./vue/css/vue-index.css">
+
+    <!--        <link rel="stylesheet" href="./antd/antd.min.css">-->
+    <style>
+        .new_dialog {
+            width: 550px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo-background">
+            <a href='index.html'>
+                <img class="logo" src="./image/logo.png" />
+            </a>
+
+        </div>
+        <div class="navigation-bar">
+            <a href="#about-background">About us</a>
+        </div>
+    </header>
+
+    <!-- Swiper -->
+    <div class="swiper-container swiper-container-horizontal">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide slide-1 swiper-slide-active" data-swiper-slide-index="0">
+                <div class="txtCenter">
+                    <span class="txt-white">WHY&nbsp;&nbsp;&nbsp;&nbsp;NOT&nbsp;&nbsp;&nbsp;&nbsp;FLY?</span>
+                </div>
+                <div class="full preload middle">
+                    <img class="swiper-lazy swiper-lazy-loaded" src="./image/01.jpg">
+                </div>
+            </div>
+            <div class="swiper-slide slide-2" data-swiper-slide-index="1">
+                <div class="homepage-left100">
+                    <span class="txt">Bring
+                        <br>Your
+                        <br>Luggage</span>
+                </div>
+                <div class="full preload middle">
+                    <img data-src="./image/02.jpg" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                </div>
+            </div>
+            <div class="swiper-slide slide-3" data-swiper-slide-index="2">
+                <div class="txtCenter">
+                    <span class="txt">DO NOT
+                        <br>hesitate</span>
+                </div>
+                <div class="full preload middle">
+                    <img data-src="./image/03.jpg" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                </div>
+            </div>
+            <div class="swiper-slide slide-4" data-swiper-slide-index="3">
+                <div class="whiteTxt">
+                    <span class="txt">Enjoy your travel
+                        <br>with the most affordable price.
+                    </span>
+                </div>
+                <div class="full preload middle">
+                    <img data-src="./image/04.jpg" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-bullets">
+            <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+            <span class="swiper-pagination-bullet"></span>
+            <span class="swiper-pagination-bullet"></span>
+            <span class="swiper-pagination-bullet"></span>
+        </div>
+        <div class="swiper-button-prev swiper-button-white" tabindex="0" role="button" aria-label="Previous slide">
+        </div>
+        <!--左箭头-->
+        <div class="swiper-button-next swiper-button-white" tabindex="0" role="button" aria-label="Next slide"></div>
+        <!--右箭头-->
+        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+        <div class="popBox">
+            <div class="pb">
+                <span class="clousx"></span>
+                <div class="p-box"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--遮罩层-->
+    <div class="shadow" onclick="closePopUp()"></div>
+
+    <!--  prepare for my flight button     -->
+
+    <div class="container" id="vue-container">
+        <div class="prepare-flight-button" @click="showForm">
+            <img src="./image/black-font.png" alt="">
+        </div>
+        <el-dialog v-model="isShow" :before-close="cancelSubmit" custom-class="new_dialog"
+            title="Input information and receive emails" style="display:none">
+            <!-- This part contains several fields and two buttons. -->
+            <el-form :model="formData" :rules="formRule" ref="formDataRef" label-width="130px">
+                <el-form-item label="Departure City">
+                    <el-input v-model="formData.departname" disabled placeholder='Departure City'
+                        style="width: 64px;" />
+                </el-form-item>
+                <el-form-item label="Arrival City" prop="arrname">
+                    <el-select v-model="formData.arrname" placeholder="Arrival City" @change="changeArrName">
+                        <el-option v-for="item in arrlist" :label="item.label" :value="item.value" :key="item.value" />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="Departure Date" prop="date1">
+                    <el-col :span="11">
+                        <el-date-picker v-model="formData.date1" type="date" placeholder="Pick a date"
+                            style="width: 311.66px;" value-format="YYYY-MM-DD" />
+                    </el-col>
+                    <el-col :span="2" class="text-center" style="text-align: center" v-show="isShowRung">
+                        <span class="text-gray-500">-</span>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="Airlines" prop="airname">
+                    <!-- <el-select v-model="formData.airname" placeholder="Airlines" style="width: 311.66px;">
+                        <el-option v-for="item in airlist" :label="item.label" :value="item.value" :key="item.value" />
+                    </el-select> -->
+                    <el-checkbox-group v-model="checkedAirlines" :min="1" :max="3">
+                        <el-checkbox v-for="airline in airlines" :label="airline" :key="airline">{{airline}}</el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+                <el-form-item label="Email Address" prop="emailaddress" style="width: 500px;">
+                    <el-input v-model="formData.emailaddress" placeholder='Please input your email address'
+                        style="width: 311.66px;"> </el-input>
+                    <el-tooltip content="To montior your tickets" placement="bottom" effect="light">
+                        <img src="./static/images/question_mark.png" class="tooltip" style="margin-left:10px ;">
+                    </el-tooltip>
+                </el-form-item>
+            </el-form>
+            <div style="margin: 0 auto; padding: 0 30%; box-sizing: border-box;" ref="buttons">
+                <el-button type="primary" @click="onSubmit" style="float: left"
+                    v-loading.fullscreen.lock="fullscreenLoading">Submit</el-button>
+                <el-button @click="cancelSubmit" style="float: right">Cancel</el-button>
+            </div>
+        </el-dialog>
+        <div id="about-background">
+            <div data-animation="fadeInLeft" data-delay="0" class="about-us">
+                <!--    about us    -->
+                <div>
+                    <img class="about-us-img" src="image/aboutus.png" alt="">
+                </div>
+                <div class="about-us-content">
+                    <h2>Who are we?</h2>
+                    <br>
+                    <p>We are your custom airfare price pushing artifact.</p>
+                    <br>
+                    <p>We are small and compact website, please don't underestimate us, we can guarantee
+                        accuracy and
+                        timeliness in this matter of your airfare push.</p>
+                    <br>
+                    <p>So that you can get the information in the first place in order to arrange your
+                        schedule.</p>
+                    <br>
+                    <p>At present, this website only has access to the airfare monitoring function, please
+                        look forward to
+                        more functions!</p>
+
+                </div>
+            </div>
+            <div class="boarding-img" data-animation="fadeInRightBig" data-delay="0">
+                <img src="image/boarding-pass.png" alt="">
+            </div>
+        </div>
+
+        <footer>your footer</footer>
+
+
+        <script src="./vue/js/vue.global.js"></script>
+
+        <script src="./vue/js/index.full.js"></script>
+
+        <script src="./vue/js/index.iife.min.js"></script>
+
+        <script src="./js/jquery-1.8.0.min.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> -->
+        <!-- import JavaScript -->
+        <!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+        <script src="./js/function.js"></script>
+        <!-- Swiper JS -->
+        <script src="./js/swiper.min.js"></script>
+        <!--  页面滚动延迟加载      -->
+        <script src="./js/scroll-animate.js"></script>
+        <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper('.swiper-container', {
+                loop: true,
+                lazy: {
+                    //loadPrevNext: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            });
+            const { reactive, ref } = Vue;
+            const airlineOptions = ['Aer Lingus', 'Ryan Air', 'KLM Air', 'Vueling'];
+            const Main = {
+                data() {
+                    return {
+                        isShow: ref(false),
+                        value: '',
+                        input: '',
+                        arrlist: ref([
+                           
+                        ]
+                        ),
+                        airlist: ref([
+                           
+                        ]),
+                        formData: {
+                            departname: 'Dublin',
+                            arrname: '',
+                            date1: '',
+                            airname: '',
+                            emailaddress: ''
+                        },
+                        airlines: airlineOptions,
+                        checkedAirlines:[],
+                    }
+
+                },
+                methods: {
+                    clearValue() {
+                        this.value = '';
+                    },
+                    showForm() {
+                        // Open form
+                        this.isShow = true;
+                    },
+                }
+            }
+
+            const el_app = Vue.createApp(Main);
+            el_app.use(ElementPlus);
+            el_app.mount("#vue-container");
+
+            function clearValue() {
+                vm.clearValue();
+            }
+            // 校验departure是否选择，email地址是否填写
+            function checkParams() {
+                if (vm.value === '') {
+                    alert('Please select departure');
+                    return fasle;
+                } else if (vm.input === '') {
+                    alert('Please input your email address');
+                    return fasle;
+                } else if (vm.input !== '') {
+                    let correctEmailAdd = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+                    if (!(correctEmailAdd.test(vm.input))) {
+                        alert('invalid email address, please check it again');
+                        return false
+                    }
+                }
+                return true;
+            }
+            // 获得值
+            function getParams() {
+                return {
+                    selectedCity: vm.value,
+                    inputEmailAdd: vm.input
+                }
+            }
+            function sendEmail() {
+                if (checkParams()) {
+                    var url = 'http://localhost:2888/sendEmail';
+                    $.ajax({
+                        url: url,
+                        type: "post",
+                        data: getParams(),
+                        success: function (data) {
+                            if (data.message === 'fail') {
+                                alert(data.result);
+                            } else {
+                                alert(data.result);
+                            }
+                        },
+                        error: function (result) {
+
+                        },
+                        dataType: 'json',
+                        timeout: 30 * 1000,
+                    });
+                }
+
+            }
+        </script>
+
+
+
+</body>
+
+</html>

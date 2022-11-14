@@ -1,0 +1,38 @@
+.prepare-flight-button {
+    height: 109px;
+    width: 300px;
+    position: absolute;
+    z-index: 1000;
+    left: 50%;
+	top: 70%;
+    margin-left: -150px;
+}
+.prepare-flight-button:hover {
+    cursor: pointer;
+}
+.configure-flight {
+    height: 200px;
+    width: 300px;
+    z-index: 1001;
+    left: 50%;
+	top: 50%;
+    margin: -150px;
+    position: absolute;
+    padding-top: 50px;
+    padding-left: 20px;
+    background-color: rgba(255, 255, 255, 0.65);
+    color: rgb(102, 104, 108);
+}
+.configure-flight .emailAddInput {
+    width: 64%;
+    margin-top: 20px;
+}
+.configure-flight .sendEmailButton {
+    display: block;
+    margin-top: 36px;
+    position: absolute;
+    margin-left: -104px;
+    left: 50%;
+	top: 50%;
+}
+

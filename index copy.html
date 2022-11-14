@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--https://www.swiper.com.cn/demo/patagonia/-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>The cheapest airline tickets</title>
+    <link rel="stylesheet" href="./css/swiper.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/sign-page.css">
+    <link rel="stylesheet" href="./css/animate.css">
+    <link rel="stylesheet" href="./css/prepare-button-page.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+    <!--        <link rel="stylesheet" href="./antd/antd.min.css">-->
+</head>
+
+<body>
+    <header>
+        <div class="logo-background">
+            <a href='index.html'>
+                <img class="logo" src="./image/logo.png" />
+            </a>
+
+        </div>
+        <div class="navigation-bar">
+            <a href="#about-background">About us</a>
+        </div>
+    </header>
+
+    <!-- Swiper -->
+    <div class="swiper-container swiper-container-horizontal">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide slide-1 swiper-slide-active" data-swiper-slide-index="0">
+                <div class="txtCenter">
+                    <span class="txt-white">WHY&nbsp;&nbsp;&nbsp;&nbsp;NOT&nbsp;&nbsp;&nbsp;&nbsp;FLY?</span>
+                </div>
+                <div class="full preload middle">
+                    <img class="swiper-lazy swiper-lazy-loaded" src="./image/01.jpg">
+                </div>
+            </div>
+            <div class="swiper-slide slide-2" data-swiper-slide-index="1">
+                <div class="homepage-left100">
+                    <span class="txt">Bring
+                        <br>Your
+                        <br>Luggage</span>
+                </div>
+                <div class="full preload middle">
+                    <img data-src="./image/02.jpg" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                </div>
+            </div>
+            <div class="swiper-slide slide-3" data-swiper-slide-index="2">
+                <div class="txtCenter">
+                    <span class="txt">DO NOT
+                        <br>hesitate</span>
+                </div>
+                <div class="full preload middle">
+                    <img data-src="./image/03.jpg" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                </div>
+            </div>
+            <div class="swiper-slide slide-4" data-swiper-slide-index="3">
+                <div class="whiteTxt">
+                    <span class="txt">Enjoy your travel
+                        <br>with the most affordable price.
+                    </span>
+                </div>
+                <div class="full preload middle">
+                    <img data-src="./image/04.jpg" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-bullets">
+            <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+            <span class="swiper-pagination-bullet"></span>
+            <span class="swiper-pagination-bullet"></span>
+            <span class="swiper-pagination-bullet"></span>
+        </div>
+        <div class="swiper-button-prev swiper-button-white" tabindex="0" role="button" aria-label="Previous slide">
+        </div>
+        <!--左箭头-->
+        <div class="swiper-button-next swiper-button-white" tabindex="0" role="button" aria-label="Next slide"></div>
+        <!--右箭头-->
+        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+        <div class="popBox">
+            <div class="pb">
+                <span class="clousx"></span>
+                <div class="p-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--sign up 界面-->
+    <div id="sign-up-popup" style="display: none">
+        <h2>Sign Up</h2>
+        <!--    first name        -->
+        <div class="input-info valid-border">
+            <input type="text" class="firstName" placeholder="First Name" autocomplete="off" onblur="checkFirstName()">
+        </div>
+        <span class="invalid-first-name" style="display: none">The length of first name is at least 2 </span>
+        <!--    family name        -->
+        <div class="input-info valid-border">
+            <input type="text" class="familyName" placeholder="Family Name" autocomplete="off"
+                onblur="checkFamilyName()">
+        </div>
+        <span class="invalid-family-name" style="display: none">The length of family name is at least 2 </span>
+        <!--    email       -->
+        <div class="input-info valid-border">
+            <input type="text" class="emailAddress" placeholder="Email Address" autocomplete="off"
+                onBlur="checkEmail()">
+        </div>
+        <span class="invalid-email" style="display: none">Invalid Email Address</span>
+        <!--   username         -->
+        <div class="input-info valid-border">
+            <input type="text" class="usernameSignUp" placeholder="Username" autocomplete="off"
+                onblur="checkUsername()">
+        </div>
+        <span class="invalid-username" style="display: none">The length of username is at least 4</span>
+        <!--   password         -->
+        <div class="input-info valid-border">
+            <input type="password" class="passwordSignUp" placeholder="Password" onblur="checkPassword()">
+        </div>
+        <span class="invalid-password" style="display: none">The length of password is at least 6</span>
+        <div class="sign-page-button">
+            <a>REGISTER</a>
+            <a onclick="closePopUp()">Close</a>
+        </div>
+    </div>
+
+    <!--sign in 界面-->
+    <div id="sign-in-popup" style="display: none">
+        <h2>Sign In</h2>
+        <div class="input-info valid-border">
+            <input type="text" class="username" placeholder="Username" autocomplete="off">
+        </div>
+        <div class="input-info valid-border">
+            <input type="password" class="password" placeholder="Password">
+        </div>
+        <div class="sign-page-button">
+            <a>Sign in</a>
+            <a onclick="closePopUp()">Close</a>
+        </div>
+    </div>
+
+    <!--遮罩层-->
+    <div class="shadow" onclick="closePopUp()"></div>
+
+    <!--  prepare for my flight button     -->
+    <div class="prepare-flight-button">
+        <img src="./image/black-font.png" alt="" onclick="clickFlightButton()">
+    </div>
+    <!--    select departure    -->
+    <div class="configure-flight" style="display: none;">
+        Departure:
+        <el-select v-model="value" placeholder="Please Select...">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+        </el-select>
+        Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <el-input class="emailAddInput" placeholder="Please input..." v-model="input" clearable ></el-input>
+        <el-row>
+            <el-button class="sendEmailButton" type="info" plain onclick="sendEmail()">Yes, send me email please</el-button>
+            
+        </el-row>
+    </div>
+
+    <div id="about-background">
+        <div data-animation="fadeInLeft" data-delay="0" class="about-us">
+            <!--    about us    -->
+            <div>
+                <img class="about-us-img" src="image/aboutus.png" alt="">
+            </div>
+            <div class="about-us-content">
+                <h2>Who are we?</h2>
+                <br>
+                <p>We are your custom airfare price pushing artifact.</p>
+                <br>
+                <p>We are small and compact website, please don't underestimate us, we can guarantee accuracy and
+                    timeliness in this matter of your airfare push.</p>
+                <br>
+                <p>So that you can get the information in the first place in order to arrange your schedule.</p>
+                <br>
+                <p>At present, this website only has access to the airfare monitoring function, please look forward to
+                    more functions!</p>
+
+            </div>
+        </div>
+        <div class="boarding-img" data-animation="fadeInRightBig" data-delay="0">
+            <img src="image/boarding-pass.png" alt="">
+        </div>
+    </div>
+
+    <footer>your footer</footer>
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="./js/function.js"></script>
+    <!-- Swiper JS -->
+    <script src="./js/swiper.min.js"></script>
+    <!--  页面滚动延迟加载      -->
+    <script src="./js/scroll-animate.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            lazy: {
+                //loadPrevNext: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        });
+        var Main = {
+            data() {
+                return {
+                    options: [{
+                        value: '上海',
+                        label: 'Shanghai'
+                    }, {
+                        value: '北京',
+                        label: 'Beijing'
+                    }, {
+                        value: '广州',
+                        label: 'Guangzhou'
+                    }, {
+                        value: '成都',
+                        label: 'Chengdu'
+                    }, {
+                        value: '杭州',
+                        label: 'Hangzhou'
+                    }, {
+                        value: '深圳',
+                        label: 'Shenzhen'
+                    }, {
+                        value: '西安',
+                        label: 'Xi\'an'
+                    }, {
+                        value: '重庆',
+                        label: 'Chongqing'
+                    }],
+
+                    value: '',
+                    input: ''
+                }
+            },
+            methods: {
+                clearValue() {
+                    this.value = '';
+                }
+            }
+        }
+        var Ctor = Vue.extend(Main)
+        var vm = new Ctor().$mount('.configure-flight')
+        function clearValue() {
+            vm.clearValue();
+        }
+        // 校验departure是否选择，email地址是否填写
+        function checkParams() {
+            if (vm.value === '') {
+                alert('Please select departure');
+                return fasle;
+            } else if (vm.input === '') {
+                alert('Please input your email address');
+                return fasle;
+            } else if (vm.input !== '') {
+                let correctEmailAdd = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+                if (!(correctEmailAdd.test(vm.input))) {
+                    alert('invalid email address, please check it again');
+                    return false
+                }
+            }
+            return true;
+        }
+        // 获得值
+        function getParams() {
+            return {
+                selectedCity: vm.value,
+                inputEmailAdd: vm.input
+            }
+        }
+        function sendEmail() {
+            if (checkParams()) {
+                var url = 'http://localhost:2888/sendEmail';
+                $.ajax({
+                    url: url,
+                    type: "post",
+                    data: getParams(),
+                    success: function (data) {
+                        if (data.message === 'fail') {
+                            alert(data.result);
+                        } else {
+                            alert(data.result);
+                        }
+                    },
+                    error: function (result) {
+
+                    },
+                    dataType: 'json',
+                    timeout: 30 * 1000,
+                });
+            }
+
+        }
+    </script>
+
+
+
+</body>
+
+</html>
